@@ -20,9 +20,4 @@ class HolaMundoController {
         return "<h1>HOLA MUNDO</h1>"
     }
 
-    @GetMapping("/getNoticias")
-    fun getNoticias():List<Noticia> {
-        return noticiaRepository.findAll()
-    }
-
 }
