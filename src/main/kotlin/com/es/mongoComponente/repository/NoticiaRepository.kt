@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository
 import java.util.Optional
 
 @Repository
-interface NoticiaRepository:MongoRepository<Noticia, String> {
+interface NoticiaRepository:MongoRepository<Noticia, String>, NoticiaCustomRepository {
 
     fun findByTitulo(titulo:String):Optional<Noticia>
+
 
 }

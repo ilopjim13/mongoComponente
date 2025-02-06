@@ -3,7 +3,7 @@ package com.es.mongoComponente.utils
 import java.io.File
 import java.util.*
 
-class FileManager {
+object FileManager {
 
     private val file = File("src/main/resources/log/log.txt")
 
