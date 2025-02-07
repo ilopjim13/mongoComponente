@@ -103,6 +103,5 @@ class NoticiasController {
     ) {
         val id = usuario._id
         val noticias = noticiaRepository.getNoticiasUsuario(id)
-        val noticiasUsuario = listOf()
     }
 }

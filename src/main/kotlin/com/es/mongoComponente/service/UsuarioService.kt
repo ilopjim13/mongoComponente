@@ -7,42 +7,50 @@ import com.es.mongoComponente.repository.UsuarioRepository
 import com.es.mongoComponente.utils.DTOMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class UsuarioService {
 
     @Autowired
     private lateinit var usuarioRepository: UsuarioRepository
-    //@Autowired
-//    private lateinit var apiService: ExternalApiService
+    @Autowired
+    private lateinit var apiService: ExternalApiService
 
-    //fun insertUser(usuarioDTO: UsuarioDTO) : UsuarioDTO {
-//
-    //    // Mapeo DTO a Entity
-    //    val usuario = DTOMapper.userDTOToEntity(usuarioDTO)
-//
-    //    // Realizo una llamada a una API externa para obtener todas las provincias de España
-    //    val datosProvincias = apiService.obtenerDatosDesdeApi()
-//
-    //    // Si los datos vienen rellenos entonces busco la provincia dentro del resultado de la llamada
-    //    if (datosProvincias != null) {
-    //        if(datosProvincias.data != null) {
-    //            datosProvincias.data.stream().filter {
-    //                it.PRO == usuario.direccion.ciudad.uppercase()
-    //            }.findFirst().orElseThrow {
-    //                NotFoundException("Provincia ${usuario.direccion.ciudad.uppercase()} no válida")
-    //            }
-    //        }
-    //    }
-    //    // Si todo ha ido bien, inserto el usuario
-    //    usuarioRepository.insert(usuario)
-//
-    //    // Devuelvo un DTO
-    //    return DTOMapper.userEntityToDTO(usuario)
-    //}
+    fun insertUser(usuarioDTO: UsuarioDTO) : UsuarioDTO {
+
+        // Mapeo DTO a Entity
+        val usuario = DTOMapper.userDTOToEntity(usuarioDTO)
+
+        // Realizo una llamada a una API externa para obtener todas las provincias de España
+        val datosProvincias = apiService.obtenerDatosDesdeApi()
+
+        // Si los datos vienen rellenos entonces busco la provincia dentro del resultado de la llamada
+        if (datosProvincias != null) {
+            if(datosProvincias.data != null) {
+                datosProvincias.data.stream().filter {
+                    it.PRO == usuario.direccion.ciudad.uppercase()
+                }.findFirst().orElseThrow {
+                    NotFoundException("Provincia ${usuario.direccion.ciudad.uppercase()} no válida")
+                }
+            }
+        }
+        // Si todo ha ido bien, inserto el usuario
+        usuarioRepository.insert(usuario)
+
+        // Devuelvo un DTO
+        return DTOMapper.userEntityToDTO(usuario)
+    }
 
     fun getUsuarioByCiudad(ciudad: String): List<UsuarioDTO> {
 
+        val datosProvincias = apiService.obtenerDatosDesdeApi()
+        var existe = false
+
+        datosProvincias?.data?.forEach {
+            if(it.PRO== ciudad.uppercase()) existe = true
+        }
+        if(!existe) throw NotFoundException("No existe la ciudad $ciudad")
         // Uso el método que he creado personalizado
         val usuarios = usuarioRepository.findByCiudad(ciudad)
 
@@ -69,6 +77,8 @@ class UsuarioService {
         }
         return usuariosNoTlfn
     }
+
+
 
 
 

@@ -32,7 +32,7 @@ class UsuarioCustomRepositoryImpl : UsuarioCustomRepository {
         return usuarios.map { it._id }
     }
 
-    fun finNoTlfn():List<Usuario> {
+    override fun findNoTlfn():List<Usuario> {
         val database = mongoTemplate.db
         val collection = database.getCollection("coll_usuarios", Usuario::class.java)
 

@@ -23,19 +23,19 @@ class UsuarioController {
     @Autowired
     private lateinit var usuarioService : UsuarioService
 
-//    @PostMapping("/")
-//    fun insert(
-//        httpRequest: HttpServletRequest,
-//        @RequestBody usuarioDTO: UsuarioDTO
-//    ) : ResponseEntity<UsuarioDTO>{
-//
-//        //val usuarioInsertadoDTO = usuarioService.insertUser(usuarioDTO)
-//
-//        LogUtils.writeLog(Log(httpRequest.method, httpRequest.requestURI, true, HttpStatus.OK))
-//
-//        return ResponseEntity(usuarioInsertadoDTO, HttpStatus.CREATED)
-//
-//    }
+    @PostMapping("/")
+    fun insert(
+        httpRequest: HttpServletRequest,
+        @RequestBody usuarioDTO: UsuarioDTO
+    ) : ResponseEntity<UsuarioDTO>{
+
+        val usuarioInsertadoDTO = usuarioService.insertUser(usuarioDTO)
+
+        LogUtils.writeLog(Log(httpRequest.method, httpRequest.requestURI, true, HttpStatus.OK))
+
+        return ResponseEntity(usuarioInsertadoDTO, HttpStatus.CREATED)
+
+    }
 
     @GetMapping("/byCiudad/{ciudad}")
     fun getByCiudad(
