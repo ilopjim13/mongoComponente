@@ -18,7 +18,8 @@ object DTOMapper {
                 usuarioInsertDTO.calle,
                 usuarioInsertDTO.numero,
                 usuarioInsertDTO.cp,
-                usuarioInsertDTO.ciudad
+                usuarioInsertDTO.ciudad,
+                usuarioInsertDTO.municipio
             )
         )
     }
@@ -34,7 +35,8 @@ object DTOMapper {
             usuario.direccion.calle,
             usuario.direccion.num,
             usuario.direccion.cp,
-            usuario.direccion.ciudad
+            usuario.direccion.ciudad,
+            usuario.direccion.municipio
         )
 
     }
@@ -50,7 +52,8 @@ object DTOMapper {
                 it.direccion.calle,
                 it.direccion.num,
                 it.direccion.cp,
-                it.direccion.ciudad
+                it.direccion.ciudad,
+                it.direccion.municipio
             )
         }
 

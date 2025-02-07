@@ -8,7 +8,6 @@ data class Usuario(
     val nombre: String,
     val nick: String,
     val estado: Boolean,
-    val municipio:String,
     val telefonos: List<String?>,
     val direccion: Direccion
 )

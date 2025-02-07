@@ -17,4 +17,13 @@ class ExternalApiService(private val webClient: WebClient.Builder) {
             .bodyToMono(DatosProvincias::class.java)
             .block() // ⚠️ Esto bloquea el hilo, usar `subscribe()` en código reactivo
     }
+
+    fun obtenerMunicipiosDesdeApi(): DatosProvincias? {
+        return webClient.build()
+            .get()
+            .uri("https://apiv1.geoapi.es/municipios?type=JSON&key=7bf3b779377b08146d0b215aa43a9e49d7cb9153e7d3dc46b5503f2ba5f4ac6d")
+            .retrieve()
+            .bodyToMono(DatosProvincias::class.java)
+            .block() // ⚠️ Esto bloquea el hilo, usar `subscribe()` en código reactivo
+    }
 }

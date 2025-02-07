@@ -9,5 +9,6 @@ data class UsuarioDTO(
     val calle: String,
     val numero: String,
     val cp: String,
-    val ciudad: String
+    val ciudad: String,
+    val municipio:String
 )

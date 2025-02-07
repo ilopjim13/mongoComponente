@@ -24,6 +24,7 @@ class UsuarioService {
 
         // Realizo una llamada a una API externa para obtener todas las provincias de España
         val datosProvincias = apiService.obtenerDatosDesdeApi()
+        val datosMunicipios = apiService.obtenerMunicipiosDesdeApi()
 
         // Si los datos vienen rellenos entonces busco la provincia dentro del resultado de la llamada
         if (datosProvincias != null) {
@@ -32,6 +33,16 @@ class UsuarioService {
                     it.PRO == usuario.direccion.ciudad.uppercase()
                 }.findFirst().orElseThrow {
                     NotFoundException("Provincia ${usuario.direccion.ciudad.uppercase()} no válida")
+                }
+            }
+        }
+
+        if (datosMunicipios != null) {
+            if(datosMunicipios.data != null) {
+                datosMunicipios.data.stream().filter {
+                    it.PRO == usuario.direccion.municipio.uppercase()
+                }.findFirst().orElseThrow {
+                    NotFoundException("Municipio ${usuario.direccion.ciudad.uppercase()} no válida")
                 }
             }
         }
